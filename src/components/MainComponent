@@ -1,0 +1,151 @@
+import React, { Component, Fragment } from 'react';
+import logo from './logo.svg';
+import './App.css';
+
+import { detectPlatform } from './system';
+
+import PropTypes from 'prop-types';
+
+import data from './sample.json';
+
+
+
+
+
+class MainInputForm extends Component {
+
+
+  constructor (props) {
+    super(props);
+    const {settings, errors} = loadSettings();
+    //mapReduceFunction();
+  }
+
+
+
+
+
+
+  render() {
+    return (
+      <div>        
+        <div>
+
+          { getDefaultValues(data) }
+          
+        </div>
+      </div>
+    );    
+  }
+
+
+}
+
+
+
+function getDefaultValues (jsonSettings) {
+
+  const defaults = Object.keys(jsonSettings).reduce((data, section) => {   
+
+    data[section] = Object.keys(jsonSettings[section]).filter(key => jsonSettings[section][key].default !== undefined)
+
+    .reduce((d, key) => {  d[key] = jsonSettings[section][key].default;      
+      return d;
+    }, {});
+    return data;
+  }, {});
+  defaults.__internal.platform = detectPlatform();
+  return defaults;
+
+}
+
+
+
+
+
+function mapReduceFunction() {
+  const defaultValues = getDefaultValues(data);
+  try {   
+    
+
+    var anArray = [1,2,3,4,5,6,7,8,9,10];
+
+
+    var evenNumbers = anArray.filter(number=> number%2===0);
+    console.log(evenNumbers);
+
+    var squaredArray = anArray.map(number=> number*number);
+    console.log(squaredArray);
+
+    var reducedValue = anArray.reduce(((acc,num) =>  acc + num), 0);
+
+    console.log(reducedValue);
+
+
+    
+
+
+
+
+    
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+function loadSettings () {
+  const defaultSettings = getDefaultValues(data);
+  try {
+    let settings = loadFromLocalStorage();
+    const url = loadFromURL();
+    if (settings && url) {
+      const diff = JSON.stringify(settings) !== JSON.stringify(url);
+      if (diff && window.confirm('Detected config in URL. Do you want to override your current config?')) {
+        settings = null;
+      }
+    }
+    if (!settings && url) {
+      settings = url;
+    }
+    if (settings && typeof settings === 'object') {
+      // make sure the sections are always created
+      const errors = [];
+      Object.keys(defaultSettings).forEach(key => {
+        settings[key] = settings[key] || {};
+        Object.keys(defaultSettings[key]).forEach(prop => {
+          let settingsValue = settings[key][prop];
+          let defaultSettingsValue = defaultSettings[key][prop];
+          if (settingsValue === undefined) {
+            settings[key][prop] = defaultSettingsValue;
+          } else if (typeof settingsValue !== typeof defaultSettingsValue) {
+            errors.push({
+              section: key,
+              prop,
+              value: settingsValue,
+              type: typeof settingsValue,
+              expected: typeof defaultSettingsValue});
+            console.error(`Incorrect type for config item ${key}.${prop} with value ${JSON.stringify(settingsValue)} (found ${typeof settingsValue}, expected ${typeof defaultSettingsValue})`);
+            settings[key][prop] = defaultSettingsValue;
+          }
+        });
+      });
+      return {settings, errors};
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+
+  defaultSettings.parity.chain = 'kovan';
+  return {settings: defaultSettings, errors: []};
+}
+
+
+
+
+
+
+
+
+
+
+export default MainInputForm;
