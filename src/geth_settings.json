@@ -1,0 +1,426 @@
+{
+
+    "__internal": {
+        "configMode": {
+          "name": "Mode",
+          "description": {
+            "simple": "Simplified config options",
+            "advanced": "All available options"
+          },
+          "default": "simple",
+          "values": [
+            "Quick Configuration [simple]",
+            "Advanced Configuration [advanced]"
+          ]
+        },
+        "platform": {
+          "name": "Platform",
+          "description": {
+            "Windows": "Config for Windows",
+            "Linux": "Config for Linux",
+            "Mac OS": "Config for Mac OS"
+          },
+          "default": "Linux",
+          "values": [
+            "Windows",
+            "Linux",
+            "Mac OS"
+          ]
+        }
+      },
+
+	"Eth": {
+		"NetworkId": {
+			"name": "NetworkId",
+			"description": {
+				"1": "Main Network",
+				"3": "Ropsten Test Network"
+			},
+			"default": "1",
+			"values": [
+				"1",
+				"3"
+			],
+			"bpm_section": "GENERAL"
+		},
+
+		"SyncMode": {
+			"name": "SyncMode",
+			"type": "string",
+			"description": {
+				"fast": "fast",
+				"full": "full",
+				"light": "light"
+			},
+			"default": "fast",
+			"values": [
+				"fast",
+				"full",
+				"light"
+			],
+			"bpm_section": "GENERAL"
+		},
+
+		"LightPeers": {
+			"name": "LightPeers",
+			"type": "number",
+			"description": "",
+			"default": 100,
+			"min": 0,
+			"max": 10000,
+			"bpm_section": "GENERAL"
+
+		},
+
+		"DatabaseCache": {
+			"name": "DatabaseCache",
+			"type": "number",
+			"description": "",
+			"default": 768,
+			"bpm_section": "GENERAL"
+
+		},
+
+		"GasPrice": {
+			"name": "GasPrice",
+			"type": "number",
+			"description": "",
+			"default": 18000000000,
+			"min": 0,
+			"max": 1800000000000000,
+			"bpm_section": "GENERAL"
+
+		},
+
+
+		"EnablePreimageRecording": {
+			"name": "EnablePreimageRecording",
+			"type": "bool",
+			"description": "",
+			"default": false,
+			"bpm_section": "GENERAL"
+		}
+	},
+
+	"Eth.Ethash": {
+		"CacheDir": {
+			"name": "CacheDir",
+			"type": "string",
+			"description": "Directory to store the ethash verification caches (default = inside the datadir)",
+			"default": "",
+			"bpm_section": "GENERAL"
+		},
+
+		"CachesInMem": {
+			"name": "CachesInMem",
+			"type": "number",
+			"description": "Number of recent ethash caches to keep in memory (16MB each) (default: 2)",
+			"default": 2,
+			"bpm_section": "GENERAL"
+		},
+
+		"CachesOnDisk": {
+			"name": "CachesOnDisk",
+			"type": "number",
+			"description": "Number of recent ethash caches to keep on disk (16MB each) (default: 3)",
+			"default": 3,
+			"bpm_section": "GENERAL"
+		},
+
+		"DatasetDir": {
+			"name": "DatasetDir",
+			"type": "string",
+			"description": "Directory to store the ethash mining DAGs (default = inside home folder)",
+			"default": "",
+			"bpm_section": "GENERAL"
+		},
+
+		"DatasetsInMem": {
+			"name": "DatasetsInMem",
+			"type": "number",
+			"description": "Number of recent ethash mining DAGs to keep in memory (1+GB each) (default: 1)",
+			"default": 1,
+			"bpm_section": "GENERAL"
+		},
+
+		"DatasetsOnDisk": {
+			"name": "DatasetsOnDisk",
+			"type": "number",
+			"description": "Number of recent ethash mining DAGs to keep on disk (1+GB each) (default: 2)",
+			"default": 2,
+			"bpm_section": "GENERAL"
+		}
+	},
+
+	"Eth.TxPool": {
+
+		"NoLocals": {
+			"name": "NoLocals",
+			"type": "bool",
+			"description": "Disables price exemptions for locally submitted transactions",
+			"default": "false",
+			"bpm_section": "GENERAL"
+		},
+		"Journal": {
+			"name": "Journal",
+			"type": "string",
+			"description": "Disk journal for local transaction to survive node restarts (default: 'transactions.rlp')",
+			"default": "",
+			"bpm_section": "GENERAL"
+		},
+		"Rejournal": {
+			"name": "Rejournal",
+			"type": "number",
+			"description": "Time interval to regenerate the local transaction journal (default: 1h0m0s)",
+			"default": 3600000000000,
+			"bpm_section": "GENERAL"
+		},
+		"PriceLimit": {
+			"name": "PriceLimit",
+			"type": "number",
+			"description": "Minimum gas price limit to enforce for acceptance into the pool (default: 1)",
+			"default": 1,
+			"bpm_section": "GENERAL"
+		},
+		"PriceBump": {
+			"name": "PriceBump",
+			"type": "number",
+			"description": "Price bump percentage to replace an already existing transaction (default: 10)",
+			"default": 10,
+			"bpm_section": "GENERAL"
+		},
+		"AccountSlots": {
+			"name": "AccountSlots",
+			"type": "number",
+			"description": "Minimum number of executable transaction slots guaranteed per account (default: 16)",
+			"default": 16,
+			"bpm_section": "GENERAL"
+		},
+		"GlobalSlots": {
+			"name": "GlobalSlots",
+			"type": "number",
+			"description": "Maximum number of executable transaction slots for all accounts (default: 4096)",
+			"default": 4096,
+			"bpm_section": "GENERAL"
+		},
+		"AccountQueue": {
+			"name": "AccountQueue",
+			"type": "number",
+			"description": "Maximum number of non-executable transaction slots permitted per account (default: 64))",
+			"default": 64,
+			"bpm_section": "GENERAL"
+		},
+		"GlobalQueue": {
+			"name": "GlobalQueue",
+			"type": "number",
+			"description": "Maximum number of non-executable transaction slots for all accounts (default: 1024)",
+			"default": 1024,
+			"bpm_section": "GENERAL"
+		},
+		"Lifetime": {
+			"name": "Lifetime",
+			"type": "number",
+			"description": "Maximum amount of time non-executable transaction are queued (default: 3h0m0s)",
+			"default": 10800000000000,
+			"bpm_section": "GENERAL"
+		}
+	},
+
+	"Eth.GPO": {
+		"Blocks": {
+			"name": "Blocks",
+			"type": "number",
+			"description": "Number of recent blocks to check for gas prices (default: 10)",
+			"default": 10,
+			"bpm_section": "GENERAL"
+		},
+		"Percentile": {
+			"name": "Percentile",
+			"type": "number",
+			"description": "Suggested gas price is the given percentile of a set of recent transaction gas prices (default: 50)",
+			"default": 50,
+			"bpm_section": "GENERAL"
+		}
+	},
+
+	"Shh": {
+		"MaxMessageSize": {
+			"name": "MaxMessageSize",
+			"type": "number",
+			"description": "Max message size accepted (default: 1048576)",
+			"default": 1048576,
+			"bpm_section": "GENERAL"
+		},
+		"MinimumAcceptedPOW": {
+			"name": "MinimumAcceptedPOW",
+			"type": "number",
+			"description": "Minimum POW accepted (default: 0.2)",
+			"default": 0.2,
+			"bpm_section": "GENERAL"
+		}
+	},
+
+	"Node": {
+		"DataDir": {
+			"name": "DataDir",
+			"type": "string",
+			"description": "Data directory for the databases and keystore",
+			"default": "",
+			"bpm_section": "GENERAL"
+		},
+		"KeyStoreDir": {
+			"name": "KeyStoreDir",
+			"type": "string",
+			"description": "Directory for the keystore (default = inside the datadir)",
+			"default": "",
+			"bpm_section": "GENERAL"
+		},
+
+		"NoUSB": {
+			"name": "NoUSB",
+			"type": "bool",
+			"description": "Disables monitoring for and managing USB hardware wallets",
+			"default": false,
+			"bpm_section": "GENERAL"
+		},
+
+		"HTTPHost": {
+			"name": "HTTPHost",
+			"type": "string",
+			"description": "HTTP-RPC server listening interface (default: 'localhost')",
+			"default": "localhost",
+			"bpm_section": "GENERAL"
+		},
+
+		"HTTPPort": {
+			"name": "HTTPPort",
+			"type": "number",
+			"description": "HTTP-RPC server listening port (default: 8545)",
+			"default": 8545,
+			"bpm_section": "GENERAL"
+		},
+
+		"HTTPVirtualHosts": {
+			"name": "HTTPVirtualHosts",
+			"type": "string[]",
+			"description": "HTTP-RPC server listening interface (default: 'localhost')",
+			"default": ["localhost"],
+			"bpm_section": "GENERAL"
+		},
+
+		"HTTPModules": {
+			"name": "HTTPModules",
+			"type": "string[]",
+			"description": "API's offered over the HTTP-RPC interface",
+			"default": ["net", "web3", "eth", "shh"],
+			"bpm_section": "GENERAL"
+		},
+
+		"HTTPCors": {
+			"name": "HTTPCors",
+			"type": "string[]",
+			"description": "Comma separated list of domains from which to accept cross origin requests (browser enforced)",
+			"default": ["localhost"],
+			"bpm_section": "GENERAL"
+		},
+
+
+		"WSHost": {
+			"name": "WSHost",
+			"type": "string",
+			"description": "WS-RPC server listening interface (default: 'localhost')",
+			"default": "localhost",
+			"bpm_section": "GENERAL"
+		},
+		"WSPort": {
+			"name": "WSPort",
+			"type": "number",
+			"description": "WS-RPC server listening port (default: 8546)",
+			"default": 8546,
+			"bpm_section": "GENERAL"
+		},
+		"WSModules": {
+			"name": "WSModules",
+			"type": "string[]",
+			"description": "API's offered over the WS-RPC interface",
+			"default": ["net", "web3", "eth", "shh"],
+			"bpm_section": "GENERAL"
+		},
+
+		"IPCPath": {
+			"name": "IPCPath",
+			"type": "string",
+			"description": "Filename for IPC socket/pipe within the datadir (explicit paths escape it)",
+			"default": "",
+			"bpm_section": "GENERAL"
+		}
+	},
+
+	"Node.P2P": {
+		"MaxPeers": {
+			"name": "MaxPeers",
+			"type": "number",
+			"description": "Maximum number of network peers (network disabled if set to 0) (default: 25)",
+			"default": 25,
+			"bpm_section": "GENERAL"
+		},
+
+		"NoDiscovery": {
+			"name": "NoDiscovery",
+			"type": "bool",
+			"description": "Disables the peer discovery mechanism (manual peer addition)",
+			"default": false,
+			"bpm_section": "GENERAL"
+		},
+
+
+		"BootstrapNodes": {
+			"name": "BootstrapNodes",
+			"type": "string",
+			"description": "Comma separated enode URLs for P2P discovery bootstrap (set v4+v5 instead for light servers)",
+			"default": "",
+			"bpm_section": "GENERAL"
+		},
+
+		"BootstrapNodesV4": {
+			"name": "BootstrapNodesV4",
+			"type": "string",
+			"description": "Comma separated enode URLs for P2P v4 discovery bootstrap (light server, full nodes)",
+			"default": "",
+			"bpm_section": "GENERAL"
+		},
+
+		"BootstrapNodesV5": {
+			"name": "BootstrapNodesV5",
+			"type": "string",
+			"description": "Comma separated enode URLs for P2P v5 discovery bootstrap (light server, light nodes)",
+			"default": "",
+			"bpm_section": "GENERAL"
+		},
+
+
+		"ListenAddr": {
+			"name": "ListenAddr",
+			"type": "string",
+			"description": "Network listening port (default: ':30303')"
+		},
+		"default": ":30303",
+		"bpm_section": "GENERAL"
+	},
+
+	"MaxPendingPeers": {
+		"name": "MaxPendingPeers",
+		"type": "number",
+		"description": "Maximum number of pending connection attempts (defaults used if set to 0) (default: 0)",
+		"default": 0,
+		"bpm_section": "GENERAL"
+	},
+
+	"NAT": {
+		"name": "NAT",
+		"type": "string",
+		"description": "NAT port mapping mechanism (any|none|upnp|pmp|extip:<IP>) (default: 'any')",
+		"default": "",
+		"bpm_section": "GENERAL"
+	}
+}

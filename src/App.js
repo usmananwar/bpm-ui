@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import isEqual from 'lodash.isequal';
 
-//import TopBar from './components/TopBar';
-//import Modal from './components/Modal';
+import TopBar from './components/TopBar';
+import Modal from './components/Modal';
 import Editor from './components/Editor';
-//import Preview from './components/Preview';
+import Preview from './components/Preview';
 //import Presets from './components/Presets';
 
 import { detectPlatform } from './system';
-import data from './parity_settings.json';
+import data from './geth_settings.json';
 
 function loadFromURL () {
   const hash = window.location.hash;
@@ -36,10 +36,8 @@ function loadFromLocalStorage () {
 
 function loadSettings () {
   const defaultSettings = generateDefaults(data);
-  const settings = data;
-
-  defaultSettings.parity.chain = 'kovan';
-  return {settings, errors: []};
+  //defaultSettings.parity.chain = 'kovan';
+  return {settings: defaultSettings, errors: []};
 }
 
 function saveSettings (settings) {
@@ -49,7 +47,7 @@ function saveSettings (settings) {
   Object.keys(defaultSettings).forEach(section => {
     Object.keys(defaultSettings[section]).forEach(prop => {
       if (isEqual(cloned[section][prop], defaultSettings[section][prop])) {
-        delete cloned[section][prop];
+        //delete cloned[section][prop];
       }
     });
 
@@ -91,11 +89,11 @@ class App extends Component {
       };
     }
     this.state = {
-      display_sections : {
-        "GENERAL":[],
-        "NETWORK":[],
-        "RPC":[]
-      },
+      display_sections : [
+        "GENERAL",
+        "NETWORK",
+        "RPC"
+      ],
       preset: undefined,
       settings,
       defaults: generateDefaults(data),
@@ -131,6 +129,7 @@ class App extends Component {
     const {display_sections, settings, defaults, preset, modal} = this.state;
     return (
       <div className='mdl-layout mdl-js-layout mdl-layout--fixed-header'>
+        <TopBar />
         
         <main className='mdl-layout__content'>
           <div className='mdl-grid'>
@@ -138,10 +137,16 @@ class App extends Component {
               <Editor settings={settings} display_sections={display_sections} onChange={this.handleChange} />
             </div>
             <div className='mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet'>
-              
+
+              <Preview settings={settings} defaults={defaults} onChange={this.handleChange} onError={this.handleError} />              
             </div>
           </div>
         </main>
+
+
+        <Modal title={modal.title} isOpen={modal.visible} onClose={() => this.setState({modal: {visible: false}})}>
+          {modal.content}
+        </Modal>
         
       </div>
     );

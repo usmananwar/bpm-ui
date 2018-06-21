@@ -19,7 +19,7 @@
         "Linux": "Config for Linux",
         "Mac OS": "Config for Mac OS"
       },
-      "default": null,
+      "default": "Linux",
       "values": [
         "Windows",
         "Linux",
@@ -1458,7 +1458,7 @@
     },
     "description": "Other uncategorized options."
   },
-  "whisper": {
+  "whisper": {  
     "bpm_section": "LOGGING",
     "section": "Whisper",
     "enabled": {
